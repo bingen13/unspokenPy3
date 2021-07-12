@@ -46,7 +46,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 		self._previous_mouse_object = None
 
-	def _hook_getSpeechTextForProperties(self, reason=NVDAObjects.controlTypes.REASON_QUERY, *args, **kwargs):
+	def _hook_getSpeechTextForProperties(self, reason=NVDAObjects.controlTypes.OutputReason, *args, **kwargs):
 		role = kwargs.get('role', None)
 		if role:
 			if config.conf["unspokenpy3"]["active"] and \
