@@ -41,16 +41,17 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		loadSoundTheme(config.conf["unspokenpy3"]["soundtheme"])
 		
 
-		self._NVDA_getSpeechTextForProperties = speech.getPropertiesSpeech
-		speech.getPropertiesSpeech = self._hook_getSpeechTextForProperties
+		self._NVDA_getSpeechTextForProperties = speech.speech.getPropertiesSpeech
+		speech.speech.getPropertiesSpeech = self._hook_getSpeechTextForProperties
 
 		self._previous_mouse_object = None
 
-	def _hook_getSpeechTextForProperties(self, reason=NVDAObjects.controlTypes.OutputReason, *args, **kwargs):
+	def _hook_getSpeechTextForProperties(self, reason=NVDAObjects.controlTypes.OutputReason.QUERY, *args, **kwargs):
 		role = kwargs.get('role', None)
 		if role:
 			if config.conf["unspokenpy3"]["active"] and \
 					'role' in kwargs and role in sounds:
+				kwargs['_role'] = kwargs['role']
 				del kwargs['role']
 		return self._NVDA_getSpeechTextForProperties(reason, *args, **kwargs)
 
