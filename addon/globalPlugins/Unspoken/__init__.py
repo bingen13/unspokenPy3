@@ -83,7 +83,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			sounds[role].play()
 
 	def event_becomeNavigatorObject(self, obj, nextHandler, isFocus=False):
-		print('Triggered test')
 		if config.conf["unspokenpy3"]["active"]:
 			self.play_object(obj)
 		else:
